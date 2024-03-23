@@ -25,14 +25,14 @@ const Forgot=(props)=>{
     }
     return <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
     <Toaster />
-    <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+    <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
       Forgot Password
     </h1>
     <form className="space-y-4 md:space-y-6" onSubmit={submitHandler}>
       <div>
         <label
           htmlFor="email"
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          className="block mb-2 text-sm font-medium text-gray-900 "
         >
           Enter the registered email
         </label>
@@ -41,7 +41,7 @@ const Forgot=(props)=>{
           type="text"
           name="email"
           id="email"
-          className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
           placeholder="Enter Email"
           required
         />

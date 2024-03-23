@@ -99,15 +99,15 @@ const SignUp = (props) => {
       <Toaster />
       <a
         href="#"
-        className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
+        className="flex items-center mb-6 text-2xl font-semibold text-gray-900 "
       >
         <img className="w-[4rem] h-[3rem] " src={logo} alt="logo" />
         Infra Pricing Tool
       </a>
-      <div className="w-full bg-white rounded-lg shadow border md:mt-0  xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+      <div className="w-full bg-white rounded-lg shadow border md:mt-0  xl:p-0 ">
         {!otp ? (
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
               Sign Up
             </h1>
             <form className="space-y-4 md:space-y-6" onSubmit={submitHandler}>
@@ -115,7 +115,7 @@ const SignUp = (props) => {
                 <div key={e.input.id}>
                   <label
                     htmlFor={e.label.for}
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     {e.label.children}
                   </label>
@@ -124,7 +124,7 @@ const SignUp = (props) => {
                     name={e.input.name}
                     id={e.input.id}
                     placeholder={e.input.placeholder}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                     required={e.input.required}
                     onChange={inputChangeHandler}
                   />
@@ -142,11 +142,11 @@ const SignUp = (props) => {
                 )}
               </button>
               <p
-                className="text-sm font-light text-gray-500 dark:text-gray-400"
+                className="text-sm font-light text-gray-500 "
                 onClick={() => props.showLogin()}
               >
                 Already Having An account?{" "}
-                <a className="font-medium text-primary-600 hover:underline dark:text-primary-500 cursor-pointer">
+                <a className="font-medium text-primary-600 hover:underline  cursor-pointer">
                   Sign In
                 </a>
               </p>
