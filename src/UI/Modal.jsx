@@ -4,13 +4,13 @@ import Context from "../globalContextStore/context";
 const Modal = () => {
   const { setSelectedEnquiry,selectedEnquiry } = useContext(Context);
   console.log(selectedEnquiry)
-  const {csp,oppurtunity,products,region  }=selectedEnquiry
+  const {csp,oppurtunity,products,region,totalPrice  }=selectedEnquiry
   return (
     <>
       <div className="fixed w-full h-screen bg-black/75  flex justify-center items-center z-[20]" onClick={()=>setSelectedEnquiry(null)}></div>
 
       <div className="w-full flex h-screen items-center justify-center absolute">
-        <div className=" lg:h-[60%] h-[80%] bg-white z-30 w-[45rem] max-w-[95%] lg:p-10 p-5 flex flex-col justify-between scaleOut fadeFull">
+        <div className=" lg:h-[60%] h-[65%] bg-white z-30 w-[45rem] max-w-[95%] lg:p-10 p-5 flex flex-col justify-between scaleOut fadeFull">
           <p className="font-semibold lg:text-3xl text-2xl tracking-wide ">
             Enquiry Details
           </p>
@@ -83,7 +83,7 @@ const Modal = () => {
 
           <div className="flex justify-between">
             <p>Total</p>
-            <p>$4400</p>
+            <p>${totalPrice}</p>
           </div>
 
           <div className="text-right">

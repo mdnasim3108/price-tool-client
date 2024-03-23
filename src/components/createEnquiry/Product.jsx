@@ -29,8 +29,8 @@ const Product = (props) => {
         <div className="lg:col-span-2">
           <p className="text-sm font-semibold mb-1">Term</p>
           <select className="bg-[#F7F8F9] w-full p-2 border-2 border-gray-300 rounded-lg outline-none" onChange={(e)=>props.update({term:e.target.value},props.id)}>
-            <option value="1 year">1 year</option>
-            <option value="2 years">2 years</option>
+            <option value="1 Year">1 Year</option>
+            <option value="3 Years">3 Years</option>
             <option value="PAYG">PAYG</option>
           </select>
         </div>

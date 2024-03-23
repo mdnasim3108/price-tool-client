@@ -36,7 +36,7 @@ const Dashboard = (props) => {
       <div
         className={`h-full ${
           navOpen ? "flex-[2]" : "[1]"
-        }  bg-[rgb(247,248,249)]  shadow-2xl  border-r transition-all duration-150 ease-linear lg:block hidden`}
+        }  bg-[rgb(247,248,249)]    border-r-2  transition-all duration-150 ease-linear lg:block hidden `}
       >
         <div
           className={`w-full bg-red-600 h-[3rem] flex flex-col pl-3 justify-center  cursor-pointer`}

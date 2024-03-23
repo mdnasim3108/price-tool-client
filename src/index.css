@@ -2,36 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-
-*{
+* {
   margin: 0;
   box-sizing: border-box;
 }
 
-@keyframes fadeFull{
-  from{
+@keyframes fadeFull {
+  from {
     opacity: 0;
   }
-  to{
+  to {
     opacity: 1;
   }
 }
 
-
-@keyframes fade{
-  from{
+@keyframes fade {
+  from {
     opacity: 0;
   }
-  to{
+  to {
     opacity: 0.5;
   }
 }
 
-@keyframes visibility{
+@keyframes visibility {
   from {
     display: none;
   }
-  to{
+  to {
     display: block;
   }
 }
@@ -44,30 +42,34 @@
 ::-webkit-scrollbar-thumb {
   width: 0;
   height: 0;
-  display: none; 
+  display: none;
 }
 
-.visibility{
+.visibility {
   animation: visibility 1000ms linear;
 }
 
-.fade{
-  animation: fade .2s linear;
+.fade {
+  animation: fade 0.2s linear;
 }
 
-.fadeFull{
-  animation: fadeFull .2s linear;
+.fadeFull {
+  animation: fadeFull 0.2s linear;
 }
 
-@keyframes scaleOut{
-  from{
+@keyframes scaleOut {
+  from {
     scale: 1.1;
   }
-  to{
-    scale: 1.0;
+  to {
+    scale: 1;
   }
 }
 
-.scaleOut{
-  animation: scaleOut .1s forwards;
+.card {
+  box-shadow: 5px 0 3px -3px #00000030;
+}
+
+.scaleOut {
+  animation: scaleOut 0.1s forwards;
 }

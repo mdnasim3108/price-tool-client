@@ -12,6 +12,7 @@ import ListEnquiry from "./components/listEnquiry/ListEnquiry.jsx";
 import Provider from "./globalContextStore/Provider.jsx";
 import PrivateRoute from "./PrivateRoute.jsx";
 import CreateEnquiry from "./components/createEnquiry/CreateEnquiry.jsx";
+import { Toaster } from "react-hot-toast";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -44,6 +45,7 @@ const router = createBrowserRouter([
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+    <Toaster/>
     <Provider>
       <RouterProvider router={router} />
     </Provider>
