@@ -9,7 +9,7 @@ const Modal = () => {
 
   const priceOfMainProduct=selectedEnquiry.products[0].term=="PAYG"?selectedEnquiry.products[0].price:(selectedEnquiry.products[0].price)/12
   const monthlyPrices=selectedEnquiry.products.map(product=>{
-    return product.term=="PAYG"?product.price:product.price/12
+    return product.term=="PAYG"?(product.price)*product.users:(product.price/12)*(product.users)
   })
   const totalMonthlyPrice=monthlyPrices.reduce((acc,curr)=>acc+curr,0)
   return (

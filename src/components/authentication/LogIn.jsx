@@ -49,11 +49,11 @@ const LogIn = (props) => {
     });
   };
   const continueWithGoogleHandler = () => {
+    
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then(async (result) => {
-        console.log(result.user.photoURL);
-        console.log(result);
+        setLoading(true)
         const { data: isUserExist } = await axios.post(`${api}/isUserExist`, {
           email:result.user.email,
         });
@@ -64,6 +64,7 @@ const LogIn = (props) => {
           path: "/",
           expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
         });
+        setLoading(false)
         fetchEnquiries(result.user.email);
         navigate("/home");
         

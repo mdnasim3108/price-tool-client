@@ -61,6 +61,7 @@ const ListEnquiry = () => {
               <div
                 className={`lg:h-[90%]  overflow-scroll lg:overflow-scroll `}
               >
+                
                 {
                   enquiries.map((enquiry, index) => (
                     <Enquiry
@@ -68,7 +69,7 @@ const ListEnquiry = () => {
                       key={index}
                       action={() => setSelectedEnquiry(enquiry)}
                     />
-                  ))
+                  )).reverse()
                 }
               </div>
             </div>

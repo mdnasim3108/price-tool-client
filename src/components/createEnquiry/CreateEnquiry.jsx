@@ -84,7 +84,7 @@ const CreateEnquiry = () => {
     axios.post(`${api}/createEnquiry`,{email:cookies.get("user"),info,products})
     .then(res=>{
       const {csp,oppurtunity,products,region,totalPrice,createdAt}=res.data;
-      setEnquiries([{csp,oppurtunity,products,region,totalPrice,time:convertTime(createdAt)},...enquiries])
+      setEnquiries([...enquiries,{csp,oppurtunity,products,region,totalPrice,time:convertTime(createdAt)}])
       setLoading(false)
       toast.success("Enquiry created successfully")
       navigate("/list")
@@ -235,7 +235,7 @@ const CreateEnquiry = () => {
             <button
               className={`py-1 w-[5rem] rounded-lg  ${(!oppurtunity || !csp || !region)?"bg-[#e8eced] text-[#818f99]":"bg-[#2b3847] text-white"}  ml-3 transition-all duration-150 ease-linear`}
               onClick={submitHandler}
-              disabled={(!oppurtunity || !csp || !region)}
+              disabled={(!oppurtunity || !csp || !region || loading) }
             >
               {loading?<ClipLoader size={15} color="white"/>:"Create"}
             </button>
