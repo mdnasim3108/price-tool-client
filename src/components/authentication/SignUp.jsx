@@ -84,7 +84,8 @@ const SignUp = (props) => {
     const { userName, email, password } = data;
     const {data:isUserExist} = await axios.post(`${api}/isUserExist`,{email})
     if(isUserExist){
-        toast.success("user already exists")
+        toast.error("user already exists")
+        setLoading(false)
         return
     }
     axios
