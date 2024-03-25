@@ -82,8 +82,13 @@ const SignUp = (props) => {
     event.preventDefault();
     setLoading(true);
     const { userName, email, password } = data;
+    const {data:isUserExist} = await axios.post(`${api}/isUserExist`,{email})
+    if(isUserExist){
+        toast.success("user already exists")
+        return
+    }
     axios
-      .post(`${api}/verify`, { userName, to: email })
+      .post(`${api}/verifyUser`, { userName, to: email })
       .then((res) => {
         toast.success("Email sent successfully");
         setOtp(res.data.otp);
@@ -95,7 +100,7 @@ const SignUp = (props) => {
       });
   };
   return (
-    <div className="flex flex-col items-center justify-center sm:px-6 sm:py-8 px-3 mx-auto md:h-screen lg:py-0  w-full lg:w-[30rem]">
+    <div className="flex flex-col items-center justify-center sm:px-6 sm:py-8 px-3 mx-auto md:h-[80vh] lg:py-0  w-full lg:w-[30rem]">
       <Toaster />
       <a
         href="#"

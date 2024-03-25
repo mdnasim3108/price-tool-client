@@ -13,7 +13,7 @@ import Context from "../../globalContextStore/context";
 import convertTime from "../../../utils/convertTime";
 const CreateEnquiry = () => {
   const cookies=new Cookies();
-  const availableProducts = [1, 2, 3, 4];
+  const availableProducts = [1, 2];
   const [products, setProducts] = useState([
     { id: 1, name: "Product 1", term: "1 Year", users: 1 },
   ]);
@@ -22,6 +22,11 @@ const CreateEnquiry = () => {
     csp: null,
     region: null,
   });
+  const [regions,setRegions]=useState([])
+  useEffect(()=>{
+    axios.get(`${api}/fetchRegions`)
+    .then(res=>setRegions(res.data))
+  },[])
   const {setEnquiries,enquiries}=useContext(Context)
   const [loading,setLoading]=useState(false)
   const { oppurtunity, csp, region } = info;
@@ -79,7 +84,7 @@ const CreateEnquiry = () => {
     axios.post(`${api}/createEnquiry`,{email:cookies.get("user"),info,products})
     .then(res=>{
       const {csp,oppurtunity,products,region,totalPrice,createdAt}=res.data;
-      setEnquiries([...enquiries,{csp,oppurtunity,products,region,totalPrice,time:convertTime(createdAt)}])
+      setEnquiries([{csp,oppurtunity,products,region,totalPrice,time:convertTime(createdAt)},...enquiries])
       setLoading(false)
       toast.success("Enquiry created successfully")
       navigate("/list")
@@ -115,7 +120,7 @@ const CreateEnquiry = () => {
 
                 <div>
                   <p className="text-sm font-semibold tracking-wide mb-2">
-                    Oppurtunity Name
+                    Opportunity Name
                   </p>
                   <input
                     type="text"
@@ -166,8 +171,12 @@ const CreateEnquiry = () => {
                     <option hidden value="">
                       Select region
                     </option>
-                    <option value="South Africa North">South Africa North</option>
-                    <option value="North America">North America</option>
+
+                    {
+                     regions.length && regions.map(region=><option value={region}>{region}</option>)
+                    }
+                    {/* <option value="South Africa North">South Africa North</option>
+                    <option value="North America">North America</option> */}
                   </select>
                 </div>
               </div>

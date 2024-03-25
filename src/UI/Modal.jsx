@@ -1,10 +1,17 @@
-import { useContext } from "react";
+import { useContext,useState } from "react";
 import Context from "../globalContextStore/context";
 
 const Modal = () => {
   const { setSelectedEnquiry,selectedEnquiry } = useContext(Context);
   console.log(selectedEnquiry)
-  const {csp,oppurtunity,products,region,totalPrice  }=selectedEnquiry
+  const {csp,oppurtunity,products,region  }=selectedEnquiry
+  const [selectedOption,setSelectedOption]=useState({monthly:true})
+
+  const priceOfMainProduct=selectedEnquiry.products[0].term=="PAYG"?selectedEnquiry.products[0].price:(selectedEnquiry.products[0].price)/12
+  const monthlyPrices=selectedEnquiry.products.map(product=>{
+    return product.term=="PAYG"?product.price:product.price/12
+  })
+  const totalMonthlyPrice=monthlyPrices.reduce((acc,curr)=>acc+curr,0)
   return (
     <>
       <div className="fixed w-full h-screen bg-black/75  flex justify-center items-center z-[20]" onClick={()=>setSelectedEnquiry(null)}></div>
@@ -47,18 +54,18 @@ const Modal = () => {
                 Term
               </p>
               <p className="text-sm tracking-wide font-semibold text-[#3e4b59]">
-                Pay G
+                {selectedEnquiry.products[0].term}
               </p>
             </div>
           </div>
 
           <div className="flex">
-            <div className="flex items-center mr-5">
-              <div className="w-[10px] h-[10px] rounded-full bg-black mr-3"></div>
+            <div className="flex items-center mr-5 cursor-pointer" onClick={()=>setSelectedOption({monthly:true})}>
+              <div className={` rounded-full ${selectedOption.monthly?"bg-black w-[10px] h-[10px]":"w-[13px] h-[13px] border-[2.5px]"}  mr-3 transition-all duration-150 ease-linear`}></div>
               <p>Monthly</p>
             </div>
-            <div className="flex items-center">
-              <div className="w-[13px] h-[13px] rounded-full border-[2.5px]  mr-3"></div>
+            <div className="flex items-center cursor-pointer" onClick={()=>setSelectedOption({annually:true})}>
+              <div className={` rounded-full ${selectedOption.annually?"bg-black w-[10px] h-[10px]":"w-[13px] h-[13px] border-[2.5px]"}  mr-3 transition-all duration-150 ease-linear`}></div>
               <p>Annual</p>
             </div>
           </div>
@@ -70,20 +77,20 @@ const Modal = () => {
           <div className="w-full flex justify-between">
             <div>
               <p className="text-lg tracking-wide font-normal">
-                Product 1 (Singapore)
+                {selectedEnquiry.products[0].name} (Singapore)
               </p>
               <p className="text-sm text-[#818F99] font-semibold    ">
-                $240 x 5 users x 1 month
+                ${priceOfMainProduct.toFixed(2)} x {selectedEnquiry.products[0].users} users x {selectedOption.monthly?" 1 month":"12 months"}
               </p>
             </div>
-            <p className="text-lg">$1200</p>
+            <p className="text-lg">${selectedOption.monthly?priceOfMainProduct.toFixed(2)*selectedEnquiry.products[0].users:(priceOfMainProduct*selectedEnquiry.products[0].users*12).toFixed(2)}</p>
           </div>
 
           <div className="bg-[#818F99] h-[1px]"></div>
 
           <div className="flex justify-between">
             <p>Total</p>
-            <p>${totalPrice}</p>
+            <p>${selectedOption.monthly?totalMonthlyPrice.toFixed(2):(totalMonthlyPrice*12).toFixed(2)}</p>
           </div>
 
           <div className="text-right">

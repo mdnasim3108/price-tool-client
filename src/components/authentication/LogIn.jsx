@@ -1,6 +1,11 @@
 import { useContext, useState } from "react";
 import logo from "../../assets/Halliburton-Emblem.jpg";
-import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import app from "../../../firebase.config";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +13,8 @@ import ClipLoader from "react-spinners/ClipLoader";
 import Forgot from "./Forgot";
 import { Cookies } from "react-cookie";
 import Context from "../../globalContextStore/context";
+import axios from "axios";
+import { api } from "../../constants";
 const LogIn = (props) => {
   const navigate = useNavigate();
   const [data, setData] = useState({ email: "", password: "" });
@@ -15,10 +22,11 @@ const LogIn = (props) => {
   const [showForgot, setShowForgot] = useState(false);
   const { fetchEnquiries } = useContext(Context);
   const cookies = new Cookies();
+  const auth = getAuth();
   const submitHandler = async (e) => {
     setLoading(true);
     e.preventDefault();
-    const auth = getAuth();
+
     const { email, password } = data;
     await signInWithEmailAndPassword(auth, email, password)
       .then(() => {
@@ -40,8 +48,32 @@ const LogIn = (props) => {
       return { ...previousData, [e.target.id]: e.target.value };
     });
   };
+  const continueWithGoogleHandler = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then(async (result) => {
+        console.log(result.user.photoURL);
+        console.log(result);
+        const { data: isUserExist } = await axios.post(`${api}/isUserExist`, {
+          email:result.user.email,
+        });
+        if (!isUserExist) {
+          await axios.post(`${api}/createUser`, { userName:result.user.displayName, email:result.user.email })
+        }
+        cookies.set("user", result.user.email, {
+          path: "/",
+          expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
+        });
+        fetchEnquiries(result.user.email);
+        navigate("/home");
+        
+      })
+      .catch((er) => {
+        toast.error(er.message);
+      });
+  };
   return (
-    <div className="flex flex-col items-center justify-center sm:px-6 sm:py-8 px-3 mx-auto md:h-screen lg:py-0  w-full lg:w-[30rem]">
+    <div className="flex flex-col items-center justify-center sm:px-6 sm:py-8 px-3 mx-auto md:h-[100vh] lg:py-0  w-full lg:w-[30rem]">
       <a className="flex items-center mb-6 text-2xl font-semibold text-gray-900 ">
         <img className="w-[4rem] h-[3rem] " src={logo} alt="logo" />
         Infra Pricing Tool
@@ -99,10 +131,7 @@ const LogIn = (props) => {
                     />
                   </div>
                   <div className="ml-3 text-sm">
-                    <label
-                      htmlFor="remember"
-                      className="text-gray-500 "
-                    >
+                    <label htmlFor="remember" className="text-gray-500 ">
                       Remember me
                     </label>
                   </div>
@@ -124,6 +153,27 @@ const LogIn = (props) => {
                   "Sign In"
                 )}
               </button>
+
+              <div className="flex items-center">
+                <div className="flex-1 h-[1px] bg-gray-500"></div>
+                <p className="mx-1">OR</p>
+                <div className="flex-1 h-[1px] bg-gray-500"></div>
+              </div>
+
+              <button
+                type="button"
+                className="px-4 w-full py-2 border flex justify-center gap-2 border-slate-200  rounded-lg   hover:border-slate-400  hover:text-slate-900  hover:shadow transition duration-150"
+                onClick={continueWithGoogleHandler}
+              >
+                <img
+                  class="w-6 h-6"
+                  src="https://www.svgrepo.com/show/475656/google-color.svg"
+                  loading="lazy"
+                  alt="google logo"
+                />
+                <span>Login with Google</span>
+              </button>
+
               <p
                 className="text-sm font-light text-gray-500 "
                 onClick={() => props.showSignUp()}

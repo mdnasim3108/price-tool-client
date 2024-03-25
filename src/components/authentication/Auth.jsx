@@ -11,7 +11,7 @@ const Auth=()=>{
         if(cookie.get("user")) navigate("/home")
     },[])
     const [showlogin,setShowlogin]=useState(true)
-    return <div className="w-full h-screen flex items-center justify-center ">
+    return <div className="w-full h-screen  ">
         <Toaster/>
             {showlogin?
             <LogIn showSignUp={()=>setShowlogin(false)}/>

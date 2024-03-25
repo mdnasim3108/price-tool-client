@@ -1,6 +1,6 @@
 import { MdDelete } from "react-icons/md";
 const Product = (props) => {
-  const availableProducts = [1, 2, 3, 4];
+  const availableProducts = [1, 2];
   return (
     <div className="w-full lg:h-[135px] h-max border-2 border-gray-300 rounded-lg mt-4 fadeFull">
       <div className="w-full h-[2.5rem] border-y-2 bg-[#eff1f3] rounded-t-lg px-4 py-2 flex justify-between items-center">
