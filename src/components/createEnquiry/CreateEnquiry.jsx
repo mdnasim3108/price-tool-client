@@ -23,6 +23,7 @@ function getTime(date) {
     minutes = minutes < 10 ? '0' + minutes : minutes; 
     return `${hours}:${minutes}:${date.getSeconds()} ${ampm}`;
   }
+
 const formattedDate = `${(date.getMonth() + 1)}/${date.getDate()}/${date.getFullYear()} ${getTime(date)}`;
   const cookies=new Cookies();
   const availableProducts = [1, 2];

@@ -10,6 +10,7 @@ const Provider = (props) => {
   const [enquiries, setEnquiries] = useState(null);
   const fetchEnquiries = (email) => {
     axios.post(`${api}/getEnquiries`,{email}).then((res) => {
+      console.log(res.data)
       setEnquiries(res.data.map(enquiry=>{
         return {...enquiry}
       }));
