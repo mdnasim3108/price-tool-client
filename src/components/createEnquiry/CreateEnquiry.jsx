@@ -10,21 +10,10 @@ import {api} from "../../constants"
 import { Cookies } from "react-cookie";
 import ClipLoader from "react-spinners/ClipLoader";
 import Context from "../../globalContextStore/context";
+import convertTime from "../../../utils/convertTime";
 const CreateEnquiry = () => {
 
-const date = new Date();
 
-function getTime(date) {
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12;
-    hours = hours ? hours : 12; 
-    minutes = minutes < 10 ? '0' + minutes : minutes; 
-    return `${hours}:${minutes}:${date.getSeconds()} ${ampm}`;
-  }
-
-const formattedDate = `${(date.getMonth() + 1)}/${date.getDate()}/${date.getFullYear()} ${getTime(date)}`;
   const cookies=new Cookies();
   const availableProducts = [1, 2];
   const [products, setProducts] = useState([
@@ -94,11 +83,10 @@ const formattedDate = `${(date.getMonth() + 1)}/${date.getDate()}/${date.getFull
       return;
     }
     setLoading(true)
-    console.log(formattedDate)
-    axios.post(`${api}/createEnquiry`,{email:cookies.get("user"),info,products,time:formattedDate})
+    axios.post(`${api}/createEnquiry`,{email:cookies.get("user"),info,products})
     .then(res=>{
-      const {csp,oppurtunity,products,region,totalPrice,time}=res.data;
-      setEnquiries([...enquiries,{csp,oppurtunity,products,region,totalPrice,time}])
+      const {csp,oppurtunity,products,region,totalPrice,createdAt}=res.data;
+      setEnquiries([...enquiries,{csp,oppurtunity,products,region,totalPrice,createdAt}])
       setLoading(false)
       toast.success("Enquiry created successfully")
       navigate("/list")

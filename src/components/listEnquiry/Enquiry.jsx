@@ -1,6 +1,7 @@
 import { BiDotsVerticalRounded } from "react-icons/bi";
 
 const Enquiry = (props) => {
+  
   const width = window.innerWidth;
   const clickHanlder = () => {
     if (width < 1024) {
@@ -42,7 +43,7 @@ const Enquiry = (props) => {
         </p>
       </div>
       <div className=" p-3  lg:block hidden col-span-2">
-        <p className="text-[14px] ">{props.time}</p>
+        <p className="text-[14px] ">{props.createdAt}</p>
       </div>
       <div
         className=" py-4 px-8  lg:block hidden col-span-1"
