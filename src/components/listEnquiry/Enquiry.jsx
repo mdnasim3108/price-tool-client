@@ -1,7 +1,5 @@
-import { useContext } from "react";
 import { BiDotsVerticalRounded } from "react-icons/bi";
-import Context from "../../globalContextStore/context";
-import formattedDate from "../../../utils/convertTime";
+
 const Enquiry = (props) => {
   const width = window.innerWidth;
   const clickHanlder = () => {
