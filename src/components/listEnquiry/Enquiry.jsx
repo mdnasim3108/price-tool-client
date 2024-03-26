@@ -1,19 +1,8 @@
 import { useContext } from "react";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import Context from "../../globalContextStore/context";
+import formattedDate from "../../../utils/convertTime";
 const Enquiry = (props) => {
-  const { setSelectedEnquiry } = useContext(Context);
-
-  //converting the UTC time to IST time zone
-  const utcTimestamp = new Date(props.time);
-  const istTimestamp =new Date( utcTimestamp.toLocaleString("en-US", {
-    timeZone: "Asia/Kolkata",
-  }));
-  istTimestamp.setHours(istTimestamp.getHours() + 5);
-  istTimestamp.setMinutes(istTimestamp.getMinutes() +30)
-  const originalTimestamp = new Date(istTimestamp);
-  const formattedTimestamp = `${originalTimestamp.getMonth() + 1}/${originalTimestamp.getDate()}/${originalTimestamp.getFullYear()} ${originalTimestamp.toLocaleTimeString('en-US', { hour12: true })}`;
-  
   const width = window.innerWidth;
   const clickHanlder = () => {
     if (width < 1024) {
@@ -55,7 +44,7 @@ const Enquiry = (props) => {
         </p>
       </div>
       <div className=" p-3  lg:block hidden col-span-2">
-        <p className="text-[14px] ">{formattedTimestamp}</p>
+        <p className="text-[14px] ">{props.time}</p>
       </div>
       <div
         className=" py-4 px-8  lg:block hidden col-span-1"

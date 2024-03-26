@@ -1,1 +1,1 @@
-export const api="https://price-tool-server.onrender.com"
+export const api="http://localhost:5000"

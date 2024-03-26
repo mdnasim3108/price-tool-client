@@ -11,6 +11,7 @@ import { Cookies } from "react-cookie";
 import ClipLoader from "react-spinners/ClipLoader";
 import Context from "../../globalContextStore/context";
 import convertTime from "../../../utils/convertTime";
+import formattedDate from "../../../utils/convertTime";
 const CreateEnquiry = () => {
   const cookies=new Cookies();
   const availableProducts = [1, 2];
@@ -81,10 +82,10 @@ const CreateEnquiry = () => {
       return;
     }
     setLoading(true)
-    axios.post(`${api}/createEnquiry`,{email:cookies.get("user"),info,products})
+    axios.post(`${api}/createEnquiry`,{email:cookies.get("user"),info,products,time:formattedDate})
     .then(res=>{
-      const {csp,oppurtunity,products,region,totalPrice,createdAt}=res.data;
-      setEnquiries([...enquiries,{csp,oppurtunity,products,region,totalPrice,time:convertTime(createdAt)}])
+      const {csp,oppurtunity,products,region,totalPrice,time}=res.data;
+      setEnquiries([...enquiries,{csp,oppurtunity,products,region,totalPrice,time}])
       setLoading(false)
       toast.success("Enquiry created successfully")
       navigate("/list")
@@ -173,10 +174,8 @@ const CreateEnquiry = () => {
                     </option>
 
                     {
-                     regions.length && regions.map(region=><option value={region}>{region}</option>)
+                     regions.length && regions.map(region=><option key={region} value={region}>{region}</option>)
                     }
-                    {/* <option value="South Africa North">South Africa North</option>
-                    <option value="North America">North America</option> */}
                   </select>
                 </div>
               </div>
